@@ -101,6 +101,6 @@ class ISS_Tracker():
 if __name__ == '__main__':
 	print('Connecting to ISS...')
 	t = ISS_Tracker()
-	t.collect_5_second_interval_data(10)
+	t.collect_5_second_interval_data(1000)
 
 	# goal is to run ISS_Tracker.execute()
