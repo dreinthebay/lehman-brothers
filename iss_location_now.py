@@ -1,12 +1,11 @@
-import urllib3
 # pip install -r requirements.txt
 import urllib.request as url
 import json
+import csv
 import os
 import time
+from tqdm import tqdm # progress bar
 
-req = urllib3.Request("http://api.open-notify.org/iss-now.json")
-response = urllib3.urlopen(req)
 class ISS_Tracker():
 	"""docstring for ClassName"""
 	def __init__(self): # arg):
@@ -16,15 +15,19 @@ class ISS_Tracker():
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
 	
-	"""docstring for method get_location
+	"""
+	docstring for method get_location
 	This method will call the ISS api to get data.
-	This method returns a list of 3 objects, timestamp, latitude, and longitude"""
+	This method returns a list of 3 objects, timestamp, latitude, and longitude
+	"""
 	def get_location(self):
-		print('inside the get_location method')
+		# print('getting location...')
 		response = url.urlopen(self.site_address)
 		obj = json.loads(response.read())
 		return [obj['timestamp'],obj['iss_position']['latitude'],obj['iss_position']['longitude']]
 
+	# this function should be depricated
+	def write_location(self):
 		print('inside the write_location method')
 
 	'''
@@ -32,18 +35,20 @@ class ISS_Tracker():
 	Throws an error if there is no file already
 	Create the file later on
 	'''
-	def check_for_writer_location(self,fname):
-		print('Checking if there is a file here...')
+	def check_for_writer_location(self, fname):
+		# print('Checking if there is a file here...')
 		return os.path.isfile(fname)
 
 	# this code checks to see if the csv reader exists, if not, it calls to make the file
-	def initialize_writer(self,fname):
-		if not t.check_for_writer_location(self,fname):
+	# it makes a csv writer which can be used to write rows
+	def initialize_writer(self, fname):
+		if not t.check_for_writer_location(fname):
 			print('File ',fname,' not found. attempting to make file...')
 		
 		with open(self.csv_path, 'wb') as csv_file:
 			csv_writer = csv.writer(csv_file, delimiter=',')
 		print('end of initialize_writer')
+		print('writer type: ',type(csv_writer))
 		return csv_writer
 
 	
@@ -52,9 +57,12 @@ class ISS_Tracker():
 			# loop over _steps intervals
 			# run get location
 			# run writer
-
+			
 			# initialize writer
+			'''
 			loc_writer = self.initialize_writer(self.csv_path)
+			print('made the writer!')
+			loc_writer.writerow(['Time','Latitiude','Longitude'])
 
 			# loop over _steps
 			for i in range(steps):
@@ -62,39 +70,37 @@ class ISS_Tracker():
 				loc = self.get_location()
 
 				# write location to file
-				loc_writer.write_row(loc)
+				loc_writer.writerow(loc)
 
-print(obj['timestamp'])
-print(obj['iss_position']['latitude'], obj['data']['iss_position']['latitude'])
 				# wait 5 seconds
-				time.sleep(60)
+				time.sleep(5)
+			'''
+
+			with open(self.csv_path, 'w') as csv_file:
+				loc_writer = csv.writer(csv_file, delimiter=',')
+				
+				loc_writer.writerow(['Time','Latitiude','Longitude'])
+
+				print('Getting location ', steps, ' times...')
+				# loop over _steps
+				for i in tqdm(range(steps)):
+					# get location
+					loc = self.get_location()
+
+					# write location to file
+					loc_writer.writerow(loc)
+
+					# wait 5 seconds
+					time.sleep(5)
+
+					# progress bar goes here
+
+			#'''
 			return True	
 		
 if __name__ == '__main__':
-	print('In the main method')
+	print('Connecting to ISS...')
 	t = ISS_Tracker()
-	fname = 'requirements.txt'
-	print('Is there a file in ', fname, '? ', t.check_for_writer_location(fname))
-	ls = t.get_location()
-	print(ls)
-	time.sleep(3)
-	print('slept and woke up')
+	t.collect_5_second_interval_data(10)
 
 	# goal is to run ISS_Tracker.execute()
-
-
-'''
-print('Hello World')
-req = "http://api.open-notify.org/iss-now.json"
-response = url.urlopen(req)
-
-
-obj = json.loads(response.read())
-
-print('The time is: ', obj['timestamp'])
-print('The latitude is: ', obj['iss_position']['latitude']) #, obj['data']['iss_position']['latitude'])
-print('The longitude is: ', obj['iss_position']['longitude'])
-'''
-# Example prints:
-#   1364795862
-#   -47.36999493 151.738540034
