@@ -15,3 +15,7 @@ class Mapper():
 		
 	def connect(self):
 		pass
+
+if __name__ == '__main__':
+	print('hello world')
+	#my_mapper = Mapper('ISS_Data.csv')
