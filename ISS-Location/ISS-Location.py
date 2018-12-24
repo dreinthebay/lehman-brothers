@@ -2,7 +2,7 @@ import urllib3 as urllib
 import json
 import csv
 
-shttp =urllib.PoolManager()
+http =urllib.PoolManager()
 req = http.request('GET',"http://api.open-notify.org/iss-now.json")
 
 obj = json.loads(req.data.decode('utf-8'))
