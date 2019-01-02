@@ -11,7 +11,7 @@ class ISS_Tracker():
 	def __init__(self): # arg):
 		#self.arg = arg
 		self.site_address = "http://api.open-notify.org/iss-now.json"
-		self.csv_path = 'ISS_data_11_54.csv'
+		self.csv_path = 'ISS_data_12_28.csv'
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
 	
@@ -79,7 +79,7 @@ class ISS_Tracker():
 			with open(self.csv_path, 'w') as csv_file:
 				loc_writer = csv.writer(csv_file, delimiter=',')
 				
-				loc_writer.writerow(['Time','Latitiude','Longitude'])
+				loc_writer.writerow(['Time','Latitude','Longitude'])
 
 				print('Getting location ', steps, ' times...')
 				# loop over _steps
@@ -101,6 +101,6 @@ class ISS_Tracker():
 if __name__ == '__main__':
 	print('Connecting to ISS...')
 	t = ISS_Tracker()
-	t.collect_5_second_interval_data(1000)
+	t.collect_5_second_interval_data(24)
 
 	# goal is to run ISS_Tracker.execute()
