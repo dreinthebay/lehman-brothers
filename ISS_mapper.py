@@ -1,7 +1,17 @@
 '''
 doc string
+
+Author:
+Date:
 This class will connect to and process the ISS data
 It will do analysis and map the coordinates of the ISS
+
+Instructions:
+In main method, choose a csv file with time, latitude, and longitude coordinates.
+Choose a location for the map html file
+Run the program
+
+> python ISS_mapper.py
 '''
 
 import numpy as np
@@ -11,9 +21,10 @@ import gmplot
 
 class Mapper():
 	"""docstring for ClassName"""
-	def __init__(self, csv_file):
+	def __init__(self, csv_file, map_path):
 		self.csv_file = csv_file
 		self.df = pd.read_csv(self.csv_file)
+		self.map_path = map_path
 		print('constructor')
 
 	def haversine(self, lat1, lon1, lat2, lon2):
@@ -59,7 +70,7 @@ class Mapper():
 		# pass absolute path
 		gmap1.draw('C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map1.html')
 		
-	def test_map_points(self):
+	def map_points(self):
 		
 		# Center on 0, 0
 		gmap2 = gmplot.GoogleMapPlotter(0,0,3)
@@ -77,7 +88,7 @@ class Mapper():
 
 		gmap2.plot(lat_list, long_list, 'cornflowerblue',edge_width=2.5)
 
-		gmap2.draw('C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map2.html')
+		gmap2.draw(self.map_path)
 
 	def execute_test_haversine(self):
 		self.make_distance_column()
@@ -95,7 +106,8 @@ class Mapper():
 
 if __name__ == '__main__':
 	print('hello world')
-	my_mapper = Mapper('ISS_Data.csv')
+	csv_file = 'ISS_Data_11_54.csv'
+	map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map2.html'
+	my_mapper = Mapper(csv_file, map_path)
 	print(my_mapper.df.head())
-	print(my_mapper.df.loc[1,'Latitude'])
-	my_mapper.test_map_points()
+	my_mapper.map_points()
