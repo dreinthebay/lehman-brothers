@@ -8,10 +8,10 @@ from tqdm import tqdm # progress bar
 
 class ISS_Tracker():
 	"""docstring for ClassName"""
-	def __init__(self): # arg):
+	def __init__(self,csv_file_name): # arg):
 		#self.arg = arg
 		self.site_address = "http://api.open-notify.org/iss-now.json"
-		self.csv_path = os.getcwd() + '//data//ISS_data_01_02.csv'
+		self.csv_path = os.getcwd() + '//data//' + csv_file_name
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
 	
@@ -103,7 +103,7 @@ class ISS_Tracker():
 		
 if __name__ == '__main__':
 	print('Connecting to ISS...')
-	t = ISS_Tracker()
-	t.collect_5_second_interval_data(100)
+	t = ISS_Tracker('generic_data_file.csv')
+	t.collect_5_second_interval_data(10)
 
 	# goal is to run ISS_Tracker.execute()
