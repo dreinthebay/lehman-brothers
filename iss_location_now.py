@@ -11,7 +11,7 @@ class ISS_Tracker():
 	def __init__(self): # arg):
 		#self.arg = arg
 		self.site_address = "http://api.open-notify.org/iss-now.json"
-		self.csv_path = 'ISS_data_12_28.csv'
+		self.csv_path = os.getcwd() + '//data//ISS_data_01_02.csv'
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
 	
@@ -37,6 +37,9 @@ class ISS_Tracker():
 	'''
 	def check_for_writer_location(self, fname):
 		# print('Checking if there is a file here...')
+		if not os.path.exists(os.getcwd()+'//data'):
+			os.mkdir(os.getcwd()+'//data')
+
 		return os.path.isfile(fname)
 
 	# this code checks to see if the csv reader exists, if not, it calls to make the file
@@ -101,6 +104,6 @@ class ISS_Tracker():
 if __name__ == '__main__':
 	print('Connecting to ISS...')
 	t = ISS_Tracker()
-	t.collect_5_second_interval_data(24)
+	t.collect_5_second_interval_data(100)
 
 	# goal is to run ISS_Tracker.execute()

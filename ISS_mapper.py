@@ -20,7 +20,9 @@ from math import radians, cos, sin, asin, sqrt
 import gmplot
 
 class Mapper():
-	"""docstring for ClassName"""
+	"""docstring for ClassName
+	The mapper class is used to map lat and long points
+	"""
 	def __init__(self, csv_file, map_path):
 		self.csv_file = csv_file
 		self.df = pd.read_csv(self.csv_file)
@@ -73,7 +75,7 @@ class Mapper():
 	def map_points(self):
 		
 		# Center on 0, 0
-		gmap2 = gmplot.GoogleMapPlotter(0,0,3)
+		gmap2 = gmplot.GoogleMapPlotter(0,0,5)
 
 		# Center on the first point
 		#gmap2 = gmplot.GoogleMapPlotter(self.df.loc[1,'Latitude'],self.df.loc[1,'Longitude'],5)
@@ -106,8 +108,8 @@ class Mapper():
 
 if __name__ == '__main__':
 	print('hello world')
-	csv_file = 'ISS_Data_11_54.csv'
-	map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map2.html'
+	csv_file = 'ISS_Data.csv'
+	map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map3.html'
 	my_mapper = Mapper(csv_file, map_path)
 	print(my_mapper.df.head())
 	my_mapper.map_points()
