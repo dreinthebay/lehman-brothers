@@ -18,15 +18,18 @@ import numpy as np
 import pandas as pd
 from math import radians, cos, sin, asin, sqrt
 import gmplot
+import os
 
 class Mapper():
 	"""docstring for ClassName
 	The mapper class is used to map lat and long points
 	"""
-	def __init__(self, csv_file, map_path):
+	def __init__(self, csv_file, map_name):
 		self.csv_file = csv_file
 		self.df = pd.read_csv(self.csv_file)
-		self.map_path = map_path
+		if not map_name.endswith('.html'): map_name += '.html'
+		self.map_name = map_name
+		self.map_path = os.getcwd()+ '\\maps\\' + map_name
 		print('constructor')
 
 	def haversine(self, lat1, lon1, lat2, lon2):
@@ -70,7 +73,7 @@ class Mapper():
 		gmap1 = gmplot.GoogleMapPlotter(30.3,78,10)
 
 		# pass absolute path
-		gmap1.draw('C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map1.html')
+		gmap1.draw(self.map_path)
 		
 	def map_points(self):
 		
@@ -109,7 +112,8 @@ class Mapper():
 if __name__ == '__main__':
 	print('hello world')
 	csv_file = 'ISS_Data.csv'
-	map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map3.html'
+	map_path = 'map3'
+	# map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map3.html'
 	my_mapper = Mapper(csv_file, map_path)
 	print(my_mapper.df.head())
 	my_mapper.map_points()

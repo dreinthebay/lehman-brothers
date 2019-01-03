@@ -11,6 +11,7 @@ class ISS_Tracker():
 	def __init__(self,csv_file_name): # arg):
 		#self.arg = arg
 		self.site_address = "http://api.open-notify.org/iss-now.json"
+		if not csv_file_name.endswith('.csv'): csv_file_name += '.csv'
 		self.csv_path = os.getcwd() + '//data//' + csv_file_name
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
