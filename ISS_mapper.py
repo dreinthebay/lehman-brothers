@@ -24,9 +24,11 @@ class Mapper():
 	"""docstring for ClassName
 	The mapper class is used to map lat and long points
 	"""
-	def __init__(self, csv_file, map_name):
-		self.csv_file = csv_file
-		self.df = pd.read_csv(self.csv_file)
+	def __init__(self, csv_name, map_name):
+		if not csv_name.endswith('.csv'): csv_name += '.csv'
+		self.csv_name = csv_name
+		self.csv_path = os.getcwd() + '\\data\\' + self.csv_name
+		self.df = pd.read_csv(self.csv_path)
 		if not map_name.endswith('.html'): map_name += '.html'
 		self.map_name = map_name
 		self.map_path = os.getcwd()+ '\\maps\\' + map_name
@@ -106,14 +108,18 @@ class Mapper():
 		c , d = self.df.iloc[2,1], self.df.iloc[2,2] # second point
 		print('The Haversine formula distance is: ', self.haversine(a,b,c,d))
 
-
+	def open_map(self):
+		print('Opening file ' + self.map_path)
+		os.system(self.map_path)
+		return 1
 
 
 if __name__ == '__main__':
 	print('hello world')
-	csv_file = 'ISS_Data.csv'
+	csv_file = 'ISS_Data_01_02.csv'
 	map_path = 'map3'
 	# map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map3.html'
 	my_mapper = Mapper(csv_file, map_path)
 	print(my_mapper.df.head())
 	my_mapper.map_points()
+	my_mapper.open_map()
