@@ -101,6 +101,14 @@ class ISS_Tracker():
 			#'''
 			return True	
 		
+	def run(self, steps):
+		try:
+			self.collect_5_second_interval_data(steps)
+		except:
+			print('Error in collection. Terminating program...')
+			return 0
+		return 1
+
 if __name__ == '__main__':
 	print('Connecting to ISS...')
 	t = ISS_Tracker('generic_data_file.csv')
