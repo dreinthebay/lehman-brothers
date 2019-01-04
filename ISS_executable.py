@@ -2,6 +2,10 @@
 This file will be run from the cmd line and executed with inputs from the user
 '''
 
+# example cmd line
+# python ISS_executable 10 ISS_data_file ISS_map
+# this example call will run for 50 seconds collecting 5 lat/long points and storing it in \data\ISS_data_file.csv. The map is then created in \map\ISS_map.html
+
 from iss_location_now import ISS_Tracker
 from ISS_mapper import Mapper
 import sys
@@ -12,15 +16,17 @@ try:
 	parser = argparse.ArgumentParser()
 	parser.add_argument("steps", help="runs the data collector step times",
 	            type=int)
+	parser.add_argument("csv_name", help='the file name for the csv', type=str)
+	parser.add_argument("map_name", help="the file name for the map", type=str)
 	args = parser.parse_args()
 
-	tracker = ISS_Tracker('file_name.csv')
+	tracker = ISS_Tracker(args.csv_name)
 	tracker.run(args.steps)
-	mapper = Mapper('file_name.csv', 'map4')
+	mapper = Mapper(args.csv_name, args.map_name)
 	mapper.map_points()
 	print('opening map...')
 	mapper.open_map()
-	print('map created in file ' + 'map4')
+	print('map created in file ' + args.map_name)
 
 	#print the square of user input from cmd line.
 	print(args.steps)
