@@ -25,14 +25,27 @@ class Mapper():
 	The mapper class is used to map lat and long points
 	"""
 	def __init__(self, csv_name, map_name):
+		
+		# cleans csv name if no suffix
 		if not csv_name.endswith('.csv'): csv_name += '.csv'
 		self.csv_name = csv_name
-		self.csv_path = os.getcwd() + '\\data\\' + self.csv_name
+		
+		# gets app directory
+		self.path = os.path.dirname(os.getcwd())
+
+		# creates csv path
+		self.csv_path = self.path + '\\data\\' + self.csv_name
+		
+		# creates dataframe
 		self.df = pd.read_csv(self.csv_path)
+		
+		# cleans map name if no suffix
 		if not map_name.endswith('.html'): map_name += '.html'
 		self.map_name = map_name
-		self.map_path = os.getcwd()+ '\\maps\\' + map_name
-		print('constructor')
+		
+		# creates map path
+		self.map_path = self.path + '\\maps\\' + map_name
+		print('map maker constructor complete')
 
 	def haversine(self, lat1, lon1, lat2, lon2):
 		"""
@@ -77,6 +90,10 @@ class Mapper():
 		# pass absolute path
 		gmap1.draw(self.map_path)
 		
+	'''
+	This function plots all of the lat long points and draws a line between them
+	It stores the map in the map folder
+	'''
 	def map_points(self):
 		
 		# Center on 0, 0
@@ -91,10 +108,13 @@ class Mapper():
 		# long list
 		long_list = self.df['Longitude']
 
+		# creates a scatter plot on a map
 		gmap2.scatter(lat_list, long_list, '# FF0000', size=40, marker=False)
 
+		# adds lines to connect the points
 		gmap2.plot(lat_list, long_list, 'cornflowerblue',edge_width=2.5)
 
+		# stores map
 		gmap2.draw(self.map_path)
 
 	def execute_test_haversine(self):
@@ -108,7 +128,11 @@ class Mapper():
 		c , d = self.df.iloc[2,1], self.df.iloc[2,2] # second point
 		print('The Haversine formula distance is: ', self.haversine(a,b,c,d))
 
+	'''
+	This function opens the map in the users default web browser
+	'''
 	def open_map(self):
+		
 		print('Opening file ' + self.map_path)
 		os.system(self.map_path)
 		return 1

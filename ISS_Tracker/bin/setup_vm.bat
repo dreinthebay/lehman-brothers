@@ -1,5 +1,6 @@
 echo off
 echo hello world
+cd ..
 pip install virtualenv
 mkdir env
 cd env

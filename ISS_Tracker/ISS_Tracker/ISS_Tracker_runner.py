@@ -1,5 +1,5 @@
-from iss_location_now import ISS_Tracker
-from ISS_mapper import Mapper
+from ISS_location_grabber.iss_location_grabber import ISS_Tracker
+from ISS_map_maker.ISS_map_maker import Mapper
 
 def run_in_python():
 	intro = input('Would you like an intro? y/n')

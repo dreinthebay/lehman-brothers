@@ -6,8 +6,8 @@ This file will be run from the cmd line and executed with inputs from the user
 # python ISS_executable 10 ISS_data_file ISS_map
 # this example call will run for 50 seconds collecting 5 lat/long points and storing it in \data\ISS_data_file.csv. The map is then created in \map\ISS_map.html
 
-from iss_location_now import ISS_Tracker
-from ISS_mapper import Mapper
+from ISS_location_grabber.iss_location_grabber import ISS_Tracker
+from ISS_map_maker.ISS_map_maker import Mapper
 import sys
 import argparse
 
