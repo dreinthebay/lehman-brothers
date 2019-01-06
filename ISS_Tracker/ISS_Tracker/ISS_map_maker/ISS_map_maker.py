@@ -34,7 +34,7 @@ class Mapper():
 		self.path = os.path.dirname(os.getcwd())
 
 		# creates csv path
-		self.csv_path = self.path + '\\data\\' + self.csv_name
+		self.csv_path = os.path.join(self.path,'data',self.csv_name)
 		
 		# creates dataframe
 		self.df = pd.read_csv(self.csv_path)
@@ -44,7 +44,7 @@ class Mapper():
 		self.map_name = map_name
 		
 		# creates map path
-		self.map_path = self.path + '\\maps\\' + map_name
+		self.map_path = os.path.join(self.path,'maps',map_name)
 		print('map maker constructor complete')
 
 	def haversine(self, lat1, lon1, lat2, lon2):

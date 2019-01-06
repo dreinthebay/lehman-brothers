@@ -26,7 +26,7 @@ class ISS_Tracker():
 	def get_location(self):
 		# print('getting location...')
 		response = url.urlopen(self.site_address)
-		obj = json.loads(response.read())
+		obj = json.loads(response.read().decode("utf-8"))
 		return [obj['timestamp'],obj['iss_position']['latitude'],obj['iss_position']['longitude']]
 
 	# this function should be depricated
