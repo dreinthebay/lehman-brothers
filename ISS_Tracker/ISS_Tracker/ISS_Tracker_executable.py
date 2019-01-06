@@ -20,8 +20,9 @@ try:
 	parser.add_argument("map_name", help="the file name for the map", type=str)
 	args = parser.parse_args()
 
-	tracker = ISS_Tracker(args.csv_name)
-	tracker.run(args.steps)
+	if args.steps > 0:
+		tracker = ISS_Tracker(args.csv_name)
+		tracker.run(args.steps)
 	mapper = Mapper(args.csv_name, args.map_name)
 	mapper.map_points()
 	print('opening map...')
