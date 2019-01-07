@@ -14,7 +14,7 @@ class ISS_Tracker():
 		if not csv_file_name.endswith('.csv'): csv_file_name += '.csv'
 		# gets app directory
 		self.path = os.path.dirname(os.getcwd())
-		self.csv_path = self.path + '//data//' + csv_file_name
+		self.csv_path = os.path.join(self.path, 'data', csv_file_name)
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
 	
