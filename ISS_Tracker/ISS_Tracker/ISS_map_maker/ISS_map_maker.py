@@ -34,7 +34,7 @@ class Mapper():
 		self.path = os.path.dirname(os.getcwd())
 
 		# creates csv path
-		self.csv_path = self.path + '\\data\\' + self.csv_name
+		self.csv_path = os.path.join(self.path, 'data',  self.csv_name)
 		
 		# creates dataframe
 		self.df = pd.read_csv(self.csv_path)
@@ -44,7 +44,7 @@ class Mapper():
 		self.map_name = map_name
 		
 		# creates map path
-		self.map_path = self.path + '\\maps\\' + map_name
+		self.map_path = os.path.join(self.path,'maps', map_name)
 		print('map maker constructor complete')
 
 	def haversine(self, lat1, lon1, lat2, lon2):
@@ -139,9 +139,11 @@ class Mapper():
 
 
 if __name__ == '__main__':
-	print('hello world')
-	csv_file = 'ISS_Data_01_02.csv'
-	map_path = 'map3'
+	print('Welcome to map maker, the program that takes ISS lat/long data and converts it into a map.')
+	csv_file = input('Please enter the name of the data file with lat/long coordinates:\n')
+	map_path = input('Please enter the title of the map file to be created:\n')
+	#csv_file = 'ISS_Data_01_02.csv'
+	#map_path = 'map3'
 	# map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map3.html'
 	my_mapper = Mapper(csv_file, map_path)
 	print(my_mapper.df.head())
