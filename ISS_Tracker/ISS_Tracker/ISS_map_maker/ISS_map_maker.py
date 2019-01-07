@@ -19,6 +19,7 @@ import pandas as pd
 from math import radians, cos, sin, asin, sqrt
 import gmplot
 import os
+import webbrowser
 
 class Mapper():
 	"""docstring for ClassName
@@ -97,10 +98,10 @@ class Mapper():
 	def map_points(self):
 		
 		# Center on 0, 0
-		gmap2 = gmplot.GoogleMapPlotter(0,0,5)
+		#gmap2 = gmplot.GoogleMapPlotter(0,0,5)
 
 		# Center on the first point
-		#gmap2 = gmplot.GoogleMapPlotter(self.df.loc[1,'Latitude'],self.df.loc[1,'Longitude'],5)
+		gmap2 = gmplot.GoogleMapPlotter(self.df.loc[1,'Latitude'],self.df.loc[1,'Longitude'],5)
 
 		# lat list
 		lat_list = self.df['Latitude']#.tolist()
@@ -134,7 +135,8 @@ class Mapper():
 	def open_map(self):
 		
 		print('Opening file ' + self.map_path)
-		os.system(self.map_path)
+		webbrowser.open_new_tab(self.map_path)
+		# os.system(self.map_path)
 		return 1
 
 
