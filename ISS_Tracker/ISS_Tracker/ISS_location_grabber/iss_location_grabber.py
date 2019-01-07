@@ -13,7 +13,8 @@ class ISS_Tracker():
 		self.site_address = "http://api.open-notify.org/iss-now.json"
 		if not csv_file_name.endswith('.csv'): csv_file_name += '.csv'
 		# gets app directory
-		self.path = os.path.dirname(os.getcwd())
+		self.path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+		print(self.path)
 		self.csv_path = os.path.join(self.path, 'data', csv_file_name)
 		print('Path for CSV: ',self.check_for_writer_location(self.csv_path))
 		# self.path = 
@@ -40,8 +41,8 @@ class ISS_Tracker():
 	'''
 	def check_for_writer_location(self, fname):
 		# print('Checking if there is a file here...')
-		if not os.path.exists(self.path +'//data'):
-			os.mkdir(self.path +'//data')
+		if not os.path.exists(os.path.join(self.path, 'data')):
+			os.mkdir(os.path.join(self.path, 'data'))
 
 		return os.path.isfile(fname)
 

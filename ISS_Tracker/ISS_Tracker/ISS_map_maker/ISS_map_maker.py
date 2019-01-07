@@ -32,7 +32,7 @@ class Mapper():
 		self.csv_name = csv_name
 		
 		# gets app directory
-		self.path = os.path.dirname(os.getcwd())
+		self.path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 		# creates csv path
 		self.csv_path = os.path.join(self.path, 'data',  self.csv_name)
@@ -142,11 +142,14 @@ class Mapper():
 
 if __name__ == '__main__':
 	print('Welcome to map maker, the program that takes ISS lat/long data and converts it into a map.')
+	print('the current path is...')
+	print(os.path.realpath(__file__))
 	csv_file = input('Please enter the name of the data file with lat/long coordinates:\n')
 	map_path = input('Please enter the title of the map file to be created:\n')
 	#csv_file = 'ISS_Data_01_02.csv'
 	#map_path = 'map3'
 	# map_path = 'C:\\Users\\slin2\\Documents\\GitHub\\lehman-brothers\\map3.html'
+	#csv_file = os.path.join(os.path.dirname(os.getcwd()),csv_file)
 	my_mapper = Mapper(csv_file, map_path)
 	print(my_mapper.df.head())
 	my_mapper.map_points()
